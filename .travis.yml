@@ -30,4 +30,4 @@ script:
   # run the tests
   - go install -v github.com/oakmail/backend
   - DATABASE=sqlite multicov -v $(glide novendor)
-  - goveralls -coverprofile=profile.cov -service=travis-ci
+  - goveralls -coverprofile=coverage.out -service=travis-ci
