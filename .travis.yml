@@ -1,0 +1,31 @@
+language: go
+go:
+  - 1.8
+  - tip
+os:
+  - linux
+env:
+  - "PATH=/home/travis/gopath/bin:$PATH"
+before_install:
+  # get glide
+  - wget https://github.com/Masterminds/glide/releases/download/v0.12.3/glide-v0.12.3-linux-amd64.tar.gz
+  - tar -vxz -C /home/travis/gopath/bin --strip=1 glide-v0.12.3-linux-amd64.tar.gz
+  # get test utils
+  - go get golang.org/x/tools/cmd/cover
+  - go get github.com/GeertJohan/fgt
+  - go get github.com/mattn/goveralls
+  - go get github.com/alecthomas/gometalinter
+  - gometalinter --install
+install:
+  # prepare the app
+  - glide install
+  # compile the code
+  - go install -v
+script:
+  # run the linters
+  - gometalinter --vendor --deadline 60s --fast --disable=gocyclo --disable=gotype --disable=dupl --disable vetshadow --concurrency=1 --exclude=errors.go ./...
+  - fgt go fmt $(glide novendor)
+  # run the tests
+  - go install -v github.com/oakmail/backend
+  - DATABASE=sqlite go test -covermode=count -coverprofile=profile.cov -v $(glide novendor)
+  - goveralls -coverprofile=profile.cov -service=travis-ci
