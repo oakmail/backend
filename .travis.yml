@@ -9,6 +9,7 @@ env:
 before_install:
   # get glide
   - wget https://github.com/Masterminds/glide/releases/download/v0.12.3/glide-v0.12.3-linux-amd64.tar.gz
+  - mkdir -p /home/travis/gopath/bin
   - tar -xzvf -C /home/travis/gopath/bin --strip=1 glide-v0.12.3-linux-amd64.tar.gz
   # get test utils
   - go get golang.org/x/tools/cmd/cover
