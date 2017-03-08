@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+// Address is the mapping between email addresses and accounts
 type Address struct {
 	ID           string    `db:"id" json:"id"`
 	DateCreated  time.Time `db:"date_created" json:"date_created"`

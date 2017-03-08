@@ -16,6 +16,7 @@ before_install:
   - go get github.com/GeertJohan/fgt
   - go get github.com/mattn/goveralls
   - go get github.com/alecthomas/gometalinter
+  - go get github.com/pzduniak/multicov
   - gometalinter --install
 install:
   # prepare the app
@@ -28,5 +29,5 @@ script:
   - fgt go fmt $(glide novendor)
   # run the tests
   - go install -v github.com/oakmail/backend
-  - DATABASE=sqlite go test -covermode=count -coverprofile=profile.cov -v $(glide novendor)
+  - DATABASE=sqlite multicov -v $(glide novendor)
   - goveralls -coverprofile=profile.cov -service=travis-ci

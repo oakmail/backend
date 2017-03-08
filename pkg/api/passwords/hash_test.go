@@ -21,7 +21,7 @@ func TestHash(t *testing.T) {
 			start := time.Now()
 
 			hash := passwords.Hash(uniuri.NewLen(128))
-			timings = append(timings, time.Now().Sub(start))
+			timings = append(timings, time.Since(start))
 
 			So(len(hash), ShouldBeGreaterThan, 0)
 		}
@@ -46,7 +46,7 @@ func TestHash(t *testing.T) {
 			start := time.Now()
 
 			res := passwords.Verify(hash, plain)
-			timings = append(timings, time.Now().Sub(start))
+			timings = append(timings, time.Since(start))
 
 			So(len(hash), ShouldBeGreaterThan, 0)
 			So(res, ShouldBeTrue)
