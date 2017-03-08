@@ -1,0 +1,143 @@
+hash: d37b3d6c06c5291807d9fdbd14c967859c88081a527df006872fbec867baad1e
+updated: 2017-03-08T20:33:50.456147+01:00
+imports:
+- name: github.com/asaskevich/govalidator
+  version: 7b3beb6df3c42abd3509abfc3bcacc0fbfb7c877
+- name: github.com/BurntSushi/toml
+  version: e643e9ef00b049d75de26e61109c5ea01885cd21
+- name: github.com/dchest/uniuri
+  version: 8902c56451e9b58ff940bbe5fec35d5f9c04584a
+- name: github.com/eapache/queue
+  version: 44cc805cf13205b55f69e14bcb69867d1ae92f98
+- name: github.com/fatih/camelcase
+  version: f6a740d52f961c60348ebb109adde9f4635d7540
+- name: github.com/fatih/structs
+  version: a720dfa8df582c51dee1b36feabb906bde1588bd
+- name: github.com/gin-gonic/gin
+  version: e2212d40c62a98b388a5eb48ecbdcf88534688ba
+  subpackages:
+  - binding
+  - render
+- name: github.com/ginuerzh/weedo
+  version: 29309b93c3cfeff422566e29115867a7a71edb68
+- name: github.com/golang/protobuf
+  version: 2402d76f3d41f928c7902a765dfc872356dd3aad
+  subpackages:
+  - proto
+- name: github.com/itsjamie/gin-cors
+  version: 97b4a9da79331dfa2b6d35f4cdd1e50f5148859c
+- name: github.com/jmoiron/sqlx
+  version: 8ed836a8adb659e8492bcaa49e0880bb84075fe2
+  subpackages:
+  - reflectx
+- name: github.com/koding/multiconfig
+  version: d41df0950d47742f85c1857b5744c154730df9dc
+- name: github.com/labstack/echo
+  version: e08070379af60f5b9c0fb5bb2d1527ba9624fe43
+- name: github.com/lib/pq
+  version: ca5bc43047f2138703da0f3d3ca89a59f3d597f1
+  subpackages:
+  - oid
+- name: github.com/manucorporat/sse
+  version: ee05b128a739a0fb76c7ebd3ae4810c1de808d6d
+- name: github.com/mattn/go-isatty
+  version: 57fdcb988a5c543893cc61bce354a6e24ab70022
+- name: github.com/mattn/go-sqlite3
+  version: ca5e3819723d8eeaf170ad510e7da1d6d2e94a08
+- name: github.com/mreiferson/go-snappystream
+  version: 028eae7ab5c4c9e2d1cb4c4ca1e53259bbe7e504
+  subpackages:
+  - snappy-go
+- name: github.com/nsqio/go-nsq
+  version: d71fb89c9e0263aaed89645b0b168e11ccf597b1
+- name: github.com/oakmail/goqu
+  version: 78bd94da88ee5f5b5392d371e63f91be2d73c674
+  subpackages:
+  - adapters/postgres
+  - adapters/sqlite3
+- name: github.com/oakmail/logrus
+  version: 78703503901d75aefc5633f2a2cd6440d6930769
+  subpackages:
+  - hooks/test
+- name: github.com/oakmail/perms
+  version: 4387240a81f2f17fc7c7afc78d3138d12d8ed2ec
+  subpackages:
+  - whitespace
+- name: github.com/oakmail/sqltypes
+  version: 82f9e11a31b18d7f11ef638f38d039b199fdcd76
+- name: github.com/pkg/errors
+  version: 645ef00459ed84a119197bfb8d8205042c6df63d
+- name: github.com/pzduniak/go-argon2
+  version: d3ddb039f079ef86b246168b172a809efc0e1e56
+- name: github.com/smartystreets/goconvey
+  version: d4c757aa9afd1e2fc1832aaab209b5794eb336e1
+  subpackages:
+  - convey
+  - convey/gotest
+  - convey/reporting
+- name: github.com/xeipuuv/gojsonpointer
+  version: 6fe8760cad3569743d51ddbb243b26f8456742dc
+- name: github.com/xeipuuv/gojsonreference
+  version: e02fc20de94c78484cd5ffb007f8af96be030a45
+- name: github.com/xeipuuv/gojsonschema
+  version: ff0417f4272e480246b4507459b3f6ae721a87ac
+- name: golang.org/x/net
+  version: f315505cf3349909cdf013ea56690da34e96a451
+  subpackages:
+  - context
+  - publicsuffix
+- name: golang.org/x/sys
+  version: 99f16d856c9836c42d24e7ab64ea72916925fa97
+  subpackages:
+  - unix
+- name: gopkg.in/appleboy/gofight.v1
+  version: beadc315fb676177c07a89c34159b9ca4e1aafd9
+- name: gopkg.in/eapache/channels.v1
+  version: 47238d5aae8c0fefd518ef2bee46290909cf8263
+- name: gopkg.in/go-playground/validator.v8
+  version: c193cecd124b5cc722d7ee5538e945bdb3348435
+- name: gopkg.in/h2non/baloo.v1
+  version: 07721c4c93632cbba22ea5c7d5b4fa39745db49d
+  subpackages:
+  - assert
+- name: gopkg.in/h2non/gentleman.v1
+  version: 218cfc7316d2d631e0c55fc8a6b445f58ac206e7
+  subpackages:
+  - context
+  - middleware
+  - mux
+  - plugin
+  - plugins/body
+  - plugins/bodytype
+  - plugins/cookies
+  - plugins/headers
+  - plugins/multipart
+  - plugins/query
+  - plugins/url
+  - utils
+- name: gopkg.in/yaml.v2
+  version: a3f3340b5840cee44f372bddb5880fcbc419b46a
+testImports:
+- name: github.com/davecgh/go-spew
+  version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
+  subpackages:
+  - spew
+- name: github.com/gopherjs/gopherjs
+  version: 7d94d732be268c4904141f8b8604eb2d6d6544a1
+  subpackages:
+  - js
+- name: github.com/jtolds/gls
+  version: bb0351aa7eb6f322f32667d51375f26a2bca6628
+- name: github.com/pmezard/go-difflib
+  version: 792786c7400a136282c1664665ae0a8db921c6c2
+  subpackages:
+  - difflib
+- name: github.com/smartystreets/assertions
+  version: c9ee7d9e9a2aeec0bee7c4a516f3e0ad7cb7e558
+  subpackages:
+  - internal/go-render/render
+  - internal/oglematchers
+- name: github.com/stretchr/testify
+  version: f390dcf405f7b83c997eac1b06768bb9f44dec18
+  subpackages:
+  - assert

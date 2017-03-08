@@ -1,0 +1,40 @@
+package: github.com/oakmail/backend
+import:
+- package: github.com/koding/multiconfig
+- package: github.com/lib/pq
+- package: github.com/dchest/uniuri
+- package: github.com/ginuerzh/weedo
+- package: github.com/gin-gonic/gin
+  version: ^1.1.4
+- package: github.com/jmoiron/sqlx
+- package: github.com/oakmail/goqu
+  version: 78bd94da88ee5f5b5392d371e63f91be2d73c674
+- package: github.com/oakmail/logrus
+  version: 78703503901d75aefc5633f2a2cd6440d6930769
+- package: github.com/itsjamie/gin-cors
+  version: ^1.0.0
+- package: github.com/mattn/go-sqlite3
+  version: ^1.2.0
+- package: gopkg.in/eapache/channels.v1
+  version: ^1.1.0
+- package: github.com/nsqio/go-nsq
+  version: ^1.0.6
+- package: github.com/labstack/echo
+  version: ^2.2.0
+- package: gopkg.in/appleboy/gofight.v1
+  version: ^2.0.0
+- package: github.com/smartystreets/goconvey
+  version: ^1.6.2
+  subpackages:
+  - convey
+- package: github.com/mreiferson/go-snappystream
+  version: ^0.2.3
+- package: gopkg.in/h2non/gentleman.v1
+  version: ^1.0.1
+- package: github.com/oakmail/perms
+  version: 4387240a81f2f17fc7c7afc78d3138d12d8ed2ec
+- package: github.com/pkg/errors
+  version: ^0.8.0
+- package: github.com/asaskevich/govalidator
+  version: ^5.0.0
+- package: github.com/pzduniak/go-argon2

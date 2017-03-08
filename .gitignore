@@ -1,15 +1,16 @@
-# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*~
 *.o
 *.a
 *.so
-
-# Folders
-_obj
-_test
-
-# Architecture specific extensions/prefixes
+*.exe
 *.[568vq]
 [568vq].out
+
+*.dat
+*.tmp
+_obj
+_test
+coverage.out
 
 *.cgo1.go
 *.cgo2.c
@@ -19,6 +20,13 @@ _cgo_export.*
 
 _testmain.go
 
-*.exe
 *.test
 *.prof
+
+.DS_Store
+
+vendor
+backend
+_errors/_errors
+_runtime
+_artifacts

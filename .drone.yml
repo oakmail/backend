@@ -1,0 +1,42 @@
+workspace:
+  base: /go
+  path: src/github.com/oakmail/backend
+
+pipeline:
+  test:
+    image: golang:1.8
+    commands:
+      # Prepare the environment variables
+      - export PATH=$PATH:$GOPATH/bin
+      # Download the vendor manager; TODO: use cache eventually
+      - mkdir -p ./.cache ./.artifacts
+      - cd ./.cache
+      - if [ ! -e glide-v0.12.3-linux-amd64.tar.gz ]; then wget https://github.com/Masterminds/glide/releases/download/v0.12.3/glide-v0.12.3-linux-amd64.tar.gz; fi
+      - if [ ! -d linux-amd64 ]; then tar xzvf glide-v0.12.3-linux-amd64.tar.gz; fi
+      - cp ./linux-amd64/glide /usr/bin/glide
+      - cd ../
+      # Fetch the test utils
+      - go get golang.org/x/tools/cmd/cover
+      - go get github.com/alecthomas/gometalinter
+      - go get github.com/GeertJohan/fgt
+      - go get github.com/axw/gocov/gocov
+      - go get github.com/matm/gocov-html
+      - gometalinter --install
+      # Prepare the dependencies
+      - glide install
+      # Run the linters
+      - gometalinter --vendor --deadline 60s --fast --disable=gocyclo --disable=gotype --disable=dupl --disable vetshadow --concurrency=1 --exclude=errors.go ./...
+      - fgt go fmt $(glide novendor)
+      # Run the tests
+      - go install -v github.com/oakmail/backend
+      - DATABASE=sqlite gocov test -covermode="count" -v $(glide novendor) | gocov-html > ./.artifacts/coverage_sqlite3.html
+      # Prepare the artifacts
+      - mv .artifacts artifacts
+  scp:
+    image: appleboy/drone-scp
+    host: trtl.io
+    port: 2222
+    username: artifacts
+    key: ${ARTIFACTS_KEY}
+    target: /home/artifacts/trtl/backend/${DRONE_COMMIT_SHA}
+    source: artifacts/*

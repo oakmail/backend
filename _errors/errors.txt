@@ -1,0 +1,32 @@
+Database error.
+Database inconsistency.
+Invalid Authorization header.
+Invalid JSON input.
+Token not found.
+Invalid token type, must be "auth".
+Authentication token expired.
+Account is blocked.
+Insufficient token permissions.
+Invalid callback format.
+Application name is invalid.
+Invalid e-mail format.
+Invalid home page format.
+Invalid ID format.
+Application not found.
+Invalid owner ID.
+Invalid date created start.
+Invalid date created end.
+Invalid date modified start.
+Invalid date modified end.
+Invalid skip format.
+Invalid limit format.
+Outdated object used in PUT.
+Invalid email domain.
+Address is taken.
+Invalid password format.
+Account not found.
+Invalid application secret.
+Authorization code not found.
+Invalid grant type.
+Invalid expiry date.
+Invalid password.
