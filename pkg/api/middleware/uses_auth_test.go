@@ -124,7 +124,7 @@ func TestUsesAuth(t *testing.T) {
 				Subscription:     "free",
 				Blocked:          true,
 				AltEmail:         uniuri.NewLen(uniuri.UUIDLen) + "@gmail.com",
-				AltEmailVerified: true,
+				AltEmailVerified: time.Now().Truncate(time.Hour),
 			}
 			if _, err := database.MustDataset(api.GQ.From("accounts").Insert(account).ResultingRow()).Select("id").ScanVal(&account.ID); err != nil {
 				So(err, ShouldBeNil)
@@ -165,7 +165,7 @@ func TestUsesAuth(t *testing.T) {
 				Subscription:     "free",
 				Blocked:          false,
 				AltEmail:         uniuri.NewLen(uniuri.UUIDLen) + "@gmail.com",
-				AltEmailVerified: true,
+				AltEmailVerified: time.Now().Truncate(time.Hour),
 			}
 			if _, err := database.MustDataset(api.GQ.From("accounts").Insert(account).ResultingRow()).Select("id").ScanVal(&account.ID); err != nil {
 				So(err, ShouldBeNil)
