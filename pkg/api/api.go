@@ -14,7 +14,8 @@ import (
 	"github.com/oakmail/backend/pkg/api/base"
 	"github.com/oakmail/backend/pkg/api/index"
 	"github.com/oakmail/backend/pkg/api/middleware"
-	"github.com/oakmail/backend/pkg/api/oauth"
+	"github.com/oakmail/backend/pkg/api/oauths"
+	"github.com/oakmail/backend/pkg/api/resource"
 	"github.com/oakmail/backend/pkg/config"
 	"github.com/oakmail/backend/pkg/filesystem"
 	"github.com/oakmail/backend/pkg/queue"
@@ -73,6 +74,14 @@ func NewAPI(
 	r.GET("/applications/:id", applications.Get)
 	r.PUT("/applications/:id", m.RequiresAuth, applications.Update)
 	r.DELETE("/applications/:id", m.RequiresAuth, applications.Delete)
+
+	resources := resources.Impl{API: a}
+	r.POST("/resources", m.RequiresAuth, resources.Create)
+	r.GET("/resources/:id", resources.Get)
+	//r.GET("/resources", resources.List)
+	//r.GET("/accounts/:id/resources", resources.ListByAccount)
+	r.PUT("/resources/:id", m.RequiresAuth, resources.Update)
+	r.DELETE("/resources/:id", m.RequiresAuth, resources.Delete)
 
 	index := index.Impl{API: a}
 	r.GET("", index.Index)
