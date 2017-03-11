@@ -9,6 +9,7 @@ import (
 	"github.com/oakmail/goqu"
 	"github.com/oakmail/logrus"
 
+	"github.com/oakmail/backend/pkg/api/middleware"
 	"github.com/oakmail/backend/pkg/config"
 	"github.com/oakmail/backend/pkg/filesystem"
 	"github.com/oakmail/backend/pkg/queue"
@@ -69,5 +70,5 @@ func NewFiler(
 
 // Start binds the Filer API and starts listening.
 func (f *Filer) Start() error {
-	return a.Gin.Run(a.Config.Filer.Address)
+	return f.Gin.Run(f.Config.Filer.Address)
 }

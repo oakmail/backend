@@ -1,14 +1,12 @@
 package filer
 
 import (
+	"errors"
 	"io"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jmoiron/sqlx"
 	"github.com/oakmail/goqu"
-	"github.com/oakmail/logrus"
 
 	"github.com/oakmail/backend/pkg/models"
 )
@@ -35,7 +33,7 @@ func (f *Filer) Fetch(c *gin.Context) {
 	switch token.ReferenceType {
 	case models.ResourceRef:
 		var resource models.Resource
-		if found, err := f.GQ.From("resources").Where(goqu.I("id").Eq(token.ResourceID)).ScanStruct(resource); !found || err != nil {
+		if found, err := f.GQ.From("resources").Where(goqu.I("id").Eq(token.ReferenceID)).ScanStruct(resource); !found || err != nil {
 			if err != nil {
 				c.AbortWithError(http.StatusUnauthorized, err)
 			} else {
@@ -55,12 +53,12 @@ func (f *Filer) Fetch(c *gin.Context) {
 		return
 	}
 
-	if err := io.Copy(c.Writer, reader); err != nil {
+	if _, err := io.Copy(c.Writer, reader); err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	if _, err := f.GQ.From("tokens").Where(goqu.I("id").Eq(token.ID)).Delete(); err != nil {
+	if _, err := f.GQ.From("tokens").Where(goqu.I("id").Eq(token.ID)).Delete().Exec(); err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}

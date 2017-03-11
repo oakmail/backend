@@ -30,3 +30,4 @@ Authorization code not found.
 Invalid grant type.
 Invalid expiry date.
 Invalid password.
+Resource not found.

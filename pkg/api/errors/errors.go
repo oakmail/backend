@@ -33,4 +33,5 @@ var (
 	InvalidGrantType             = &Error{Code: 30, Message: "Invalid grant type."}
 	InvalidExpiryDate            = &Error{Code: 31, Message: "Invalid expiry date."}
 	InvalidPassword              = &Error{Code: 32, Message: "Invalid password."}
+	ResourceNotFound             = &Error{Code: 33, Message: "Resource not found."}
 )

@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/dchest/uniuri"
 	"github.com/gin-gonic/gin"
+	"github.com/oakmail/goqu"
 
 	"github.com/oakmail/backend/pkg/api/errors"
 	"github.com/oakmail/backend/pkg/database"
@@ -61,7 +61,7 @@ func (i *Impl) Create(c *gin.Context) {
 	}
 
 	resource.UploadToken = upload.ID
-	if _, err := i.GQ.From("resources").Where(goqu.I("id").Eq(resource.ID)).Update(resource); err != nil {
+	if _, err := i.GQ.From("resources").Where(goqu.I("id").Eq(resource.ID)).Update(resource).Exec(); err != nil {
 		panic(err)
 	}
 

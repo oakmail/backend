@@ -18,6 +18,8 @@
  - [pkg/api/applications/create.go:28](../pkg/api/applications/create.go#L28)
  - [pkg/api/applications/update.go:50](../pkg/api/applications/update.go#L50)
  - [pkg/api/oauth/handler.go:24](../pkg/api/oauth/handler.go#L24)
+ - [pkg/api/resources/create.go:24](../pkg/api/resources/create.go#L24)
+ - [pkg/api/resources/update.go:49](../pkg/api/resources/update.go#L49)
 
 ### 5: Token not found.
  - [pkg/api/middleware/uses_auth.go:44](../pkg/api/middleware/uses_auth.go#L44)
@@ -38,6 +40,9 @@
  - [pkg/api/applications/list.go:49](../pkg/api/applications/list.go#L49)
  - [pkg/api/applications/list.go:56](../pkg/api/applications/list.go#L56)
  - [pkg/api/applications/update.go:58](../pkg/api/applications/update.go#L58)
+ - [pkg/api/resources/create.go:35](../pkg/api/resources/create.go#L35)
+ - [pkg/api/resources/delete.go:40](../pkg/api/resources/delete.go#L40)
+ - [pkg/api/resources/update.go:57](../pkg/api/resources/update.go#L57)
 
 ### 10: Invalid callback format.
  - [pkg/api/applications/create.go:45](../pkg/api/applications/create.go#L45)
@@ -63,6 +68,9 @@
  - [pkg/api/applications/delete.go:22](../pkg/api/applications/delete.go#L22)
  - [pkg/api/applications/get.go:18](../pkg/api/applications/get.go#L18)
  - [pkg/api/applications/update.go:24](../pkg/api/applications/update.go#L24)
+ - [pkg/api/resources/delete.go:22](../pkg/api/resources/delete.go#L22)
+ - [pkg/api/resources/get.go:18](../pkg/api/resources/get.go#L18)
+ - [pkg/api/resources/update.go:25](../pkg/api/resources/update.go#L25)
 
 ### 15: Application not found.
  - [pkg/api/applications/delete.go:32](../pkg/api/applications/delete.go#L32)
@@ -94,6 +102,7 @@
 
 ### 23: Outdated object used in PUT.
  - [pkg/api/applications/update.go:65](../pkg/api/applications/update.go#L65)
+ - [pkg/api/resources/update.go:64](../pkg/api/resources/update.go#L64)
 
 ### 24: Invalid email domain.
  - [pkg/api/accounts/create.go:33](../pkg/api/accounts/create.go#L33)
@@ -125,3 +134,8 @@
 
 ### 32: Invalid password.
  - [pkg/api/oauth/password_grant.go:67](../pkg/api/oauth/password_grant.go#L67)
+
+### 33: Resource not found.
+ - [pkg/api/resources/delete.go:32](../pkg/api/resources/delete.go#L32)
+ - [pkg/api/resources/get.go:28](../pkg/api/resources/get.go#L28)
+ - [pkg/api/resources/update.go:35](../pkg/api/resources/update.go#L35)
