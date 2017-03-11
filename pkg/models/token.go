@@ -10,14 +10,16 @@ import (
 // Token is an implementation of both types of OAuth tokens
 // implement some sorts of perms
 type Token struct {
-	ID           string      `db:"id" json:"id" goqu:"skipinsert"`
-	DateCreated  time.Time   `db:"date_created" json:"date_created"`
-	DateModified time.Time   `db:"date_modified" json:"date_modified"`
-	Owner        uint64      `db:"owner" json:"owner"`
-	ExpiryDate   time.Time   `db:"expiry_date" json:"expiry_date"`
-	Type         TokenType   `db:"type" json:"type"`
-	Perms        perms.Nodes `db:"perms" json:"perms"`
-	Application  uint64      `db:"application" json:"application"`
+	ID            string        `db:"id" json:"id" goqu:"skipinsert"`
+	DateCreated   time.Time     `db:"date_created" json:"date_created"`
+	DateModified  time.Time     `db:"date_modified" json:"date_modified"`
+	Owner         uint64        `db:"owner" json:"owner"`
+	ExpiryDate    time.Time     `db:"expiry_date" json:"expiry_date"`
+	Type          TokenType     `db:"type" json:"type"`
+	Perms         perms.Nodes   `db:"perms" json:"perms,omitempty"`
+	Application   uint64        `db:"application" json:"application,omitempty"`
+	ReferenceType ReferenceType `db:"reference_type" json:"reference_type,omitempty"`
+	ReferenceID   uint64        `db:"reference_id" json:"reference_id,omitempty"`
 }
 
 // CheckAnd checks all passed perms
@@ -53,8 +55,10 @@ type TokenType string
 
 // AuthToken is for authorization, CodeToken is for 3rd party app OAuth flow.
 const (
-	AuthToken TokenType = "auth"
-	CodeToken           = "code"
+	AuthToken   TokenType = "auth"
+	CodeToken             = "code"
+	UploadToken           = "upload"
+	FetchToken            = "fetch"
 )
 
 // Scan implements the database/sql Scanner interface
@@ -65,5 +69,25 @@ func (t *TokenType) Scan(value interface{}) error {
 
 // Value implements the database/sql Valuer interface
 func (t TokenType) Value() (driver.Value, error) {
+	return string(t), nil
+}
+
+// ReferenceType is what the token refers to in case of upload and fetch tokens.
+type ReferenceType string
+
+// ReferenceType is all the possible models that you can reference
+const (
+	ResourceRef ReferenceType = "resource"
+	EmailRef                  = "email"
+)
+
+// Scan implements the database/sql Scanner interface
+func (t *ReferenceType) Scan(value interface{}) error {
+	*t = ReferenceType(string(value.([]byte)))
+	return nil
+}
+
+// Value implements the database/sql Valuer interface
+func (t ReferenceType) Value() (driver.Value, error) {
 	return string(t), nil
 }

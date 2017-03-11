@@ -19,7 +19,6 @@ func (i *Impl) Create(c *gin.Context) {
 		Owner uint64                 `json:"owner"`
 		Meta  map[string]interface{} `json:"meta"`
 		Tags  []string               `json:"tags"`
-		Body  []byte                 `json:"body"`
 	}
 	if err := c.BindJSON(&input); err != nil {
 		errors.Abort(c, http.StatusBadRequest, errors.InvalidJSONInput)
@@ -43,9 +42,26 @@ func (i *Impl) Create(c *gin.Context) {
 		Owner:        input.Owner,
 		Meta:         input.Meta,
 		Tags:         input.Tags,
-		Body:         input.Body,
 	}
 	if _, err := database.MustDataset(i.GQ.From("resources").Insert(resource).ResultingRow()).Select("id").ScanVal(&resource.ID); err != nil {
+		panic(err)
+	}
+
+	upload := models.Token{
+		DateCreated:   time.Now(),
+		DateModified:  time.Now(),
+		Owner:         input.Owner,
+		ExpiryDate:    time.Now().Add(time.Hour),
+		Type:          models.UploadToken,
+		ReferenceType: "resource",
+		ReferenceID:   resource.ID,
+	}
+	if _, err := database.MustDataset(i.GQ.From("tokens").Insert(upload).ResultingRow()).Select("id").ScanVal(&upload.ID); err != nil {
+		panic(err)
+	}
+
+	resource.UploadToken = upload.ID
+	if _, err := i.GQ.From("resources").Where(goqu.I("id").Eq(resource.ID)).Update(resource); err != nil {
 		panic(err)
 	}
 

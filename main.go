@@ -11,6 +11,7 @@ import (
 	"github.com/oakmail/backend/pkg/api"
 	"github.com/oakmail/backend/pkg/config"
 	"github.com/oakmail/backend/pkg/database"
+	"github.com/oakmail/backend/pkg/filer"
 	"github.com/oakmail/backend/pkg/filesystem"
 	"github.com/oakmail/backend/pkg/queue"
 )
@@ -152,6 +153,21 @@ func main() {
 				"module": "init",
 				"error":  err.Error(),
 			}).Fatal("Failed to start the API server")
+		}
+	}()
+
+	filer := filer.NewFiler(cfg, logger, db, gq, fs, qu)
+	go func() {
+		logger.WithFields(logrus.Fields{
+			"module": "init",
+			"bind":   cfg.Filer.Address,
+		}).Info("Starting the Filer server")
+
+		if err := filer.Start(); err != nil {
+			logger.WithFields(logrus.Fields{
+				"module": "init",
+				"error":  err.Error(),
+			}).Fatal("Failed to start the Filer server")
 		}
 	}()
 

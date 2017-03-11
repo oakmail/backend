@@ -11,5 +11,6 @@ type Resource struct {
 	Owner        uint64                 `db:"owner" json:"owner"`
 	Meta         map[string]interface{} `db:"meta" json:"meta"`
 	Tags         []string               `db:"tags" json:"tags"`
-	Body         []byte                 `db:"body" json:"body"`
+	File         string                 `db:"file" json:"file,omitempty"`
+	UploadToken  string                 `db:"upload_token" json:"upload_token,omitempty"`
 }
