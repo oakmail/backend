@@ -68,6 +68,16 @@ func NewAPI(
 	r.DELETE("/accounts/:id", m.RequiresAuth, accounts.Delete)
 	r.GET("/accounts/:id", m.RequiresAuth, accounts.Get)
 
+	/*
+		addresses := addresses.Impl{API: a}
+		r.POST("/addresses", m.RequiresAuth, addresses.Create)
+		r.GET("/addresses/:id", m.RequiresAuth, addresses.Get)
+		r.GET("/addresses", m.RequiresAuth, addresses.List)
+		r.GET("/accounts/:id/addresses", m.RequiresAuth, addresses.ListByAccount)
+		r.PUT("/addresses/:id", m.RequiresAuth, addresses.Update)
+		r.DELETE("/addresses/:id", m.RequiresAuth, addresses.Delete)
+	*/
+
 	applications := applications.Impl{API: a}
 	r.POST("/applications", m.RequiresAuth, applications.Create)
 	r.GET("/applications", m.RequiresAuth, applications.List)
@@ -75,19 +85,38 @@ func NewAPI(
 	r.PUT("/applications/:id", m.RequiresAuth, applications.Update)
 	r.DELETE("/applications/:id", m.RequiresAuth, applications.Delete)
 
-	resources := resources.Impl{API: a}
-	r.POST("/resources", m.RequiresAuth, resources.Create)
-	r.GET("/resources/:id", resources.Get)
-	//r.GET("/resources", resources.List)
-	//r.GET("/accounts/:id/resources", resources.ListByAccount)
-	r.PUT("/resources/:id", m.RequiresAuth, resources.Update)
-	r.DELETE("/resources/:id", m.RequiresAuth, resources.Delete)
-
 	index := index.Impl{API: a}
 	r.GET("", index.Index)
 
+	/*
+		keys := keys.Impl{API: a}
+		r.POST("/keys", m.RequiresAuth, keys.Create)
+		r.GET("/keys/:id", keys.Get)
+		r.GET("/keys", keys.List)
+		r.PUT("/keys/:id", m.RequiresAuth, keys.Update)
+		r.DELETE("/keys/:id", m.RequiresAuth, keys.Delete)
+	*/
+
 	oauth := oauth.Impl{API: a}
 	r.POST("/oauth", oauth.OAuth)
+
+	resources := resources.Impl{API: a}
+	r.POST("/resources", m.RequiresAuth, resources.Create)
+	r.GET("/resources/:id", m.RequiresAuth, resources.Get)
+	//r.GET("/resources", m.RequiresAuth, resources.List)
+	//r.GET("/accounts/:id/resources", m.RequiresAuth, resources.ListByAccount)
+	r.PUT("/resources/:id", m.RequiresAuth, resources.Update)
+	r.DELETE("/resources/:id", m.RequiresAuth, resources.Delete)
+
+	/*
+		tokens := tokens.Impl{API: a}
+		r.POST("/tokens", m.RequiresAuth, tokens.Create)
+		r.GET("/tokens/:id", m.RequiresAuth, tokens.Get)
+		r.GET("/tokens", m.RequiresAuth, tokens.List)
+		r.GET("/accounts/:id/tokens", m.RequiresAuth, tokens.ListByAccount)
+		r.PUT("/tokens/:id", m.RequiresAuth, tokens.Update)
+		r.DELETE("/tokens/:id", m.RequiresAuth, tokens.Delete)
+	*/
 
 	return a
 }
