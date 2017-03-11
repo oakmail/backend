@@ -13,9 +13,9 @@ type PublicKey struct {
 	Algorithm        uint8  `db:"algorithm" json:"algorithm"`
 	Length           uint16 `db:"length" json:"length"`
 	Body             []byte `db:"body" json:"body"`
-	KeyIDString      string `db:"key_id_string"json:"key_id_string"`
+	KeyIDString      string `db:"key_id_string" json:"key_id_string"`
 	KeyIDShortString string `db:"key_id_short_string" json:"key_id_short_string"`
-	MasterKey        string `db:"master_key" json:"master_key"`
+	MasterKey        uint64 `db:"master_key" json:"master_key"`
 }
 
 type PublicKeyIdentity struct {

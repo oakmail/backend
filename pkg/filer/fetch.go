@@ -1,7 +1,6 @@
 package filer
 
 import (
-	"errors"
 	"io"
 	"net/http"
 
@@ -17,15 +16,15 @@ func (f *Filer) Fetch(c *gin.Context) {
 	var token models.Token
 	if found, err := f.GQ.From("tokens").Where(goqu.I("id").Eq(id)).ScanStruct(&token); !found || err != nil {
 		if err != nil {
-			c.AbortWithError(http.StatusUnauthorized, err)
+			c.String(http.StatusUnauthorized, err.Error())
 		} else {
-			c.AbortWithError(http.StatusUnauthorized, errors.New("Token not found"))
+			c.String(http.StatusUnauthorized, "Token not found")
 		}
 		return
 	}
 
 	if token.Type != models.FetchToken {
-		c.AbortWithError(http.StatusUnauthorized, errors.New("Invalid token type"))
+		c.String(http.StatusUnauthorized, "Invalid token type")
 		return
 	}
 
@@ -35,31 +34,31 @@ func (f *Filer) Fetch(c *gin.Context) {
 		var resource models.Resource
 		if found, err := f.GQ.From("resources").Where(goqu.I("id").Eq(token.ReferenceID)).ScanStruct(resource); !found || err != nil {
 			if err != nil {
-				c.AbortWithError(http.StatusUnauthorized, err)
+				c.String(http.StatusUnauthorized, err.Error())
 			} else {
-				c.AbortWithError(http.StatusUnauthorized, errors.New("Resource not found"))
+				c.String(http.StatusUnauthorized, "Resource not found")
 			}
 			return
 		}
 		file = resource.File
 	default:
-		c.AbortWithError(http.StatusBadRequest, errors.New("Invalid reference type"))
+		c.String(http.StatusBadRequest, "Invalid reference type")
 		return
 	}
 
 	reader, err := f.Filesystem.Fetch(file)
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
+		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	if _, err := io.Copy(c.Writer, reader); err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
+		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	if _, err := f.GQ.From("tokens").Where(goqu.I("id").Eq(token.ID)).Delete().Exec(); err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
+		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 }

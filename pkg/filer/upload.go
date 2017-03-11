@@ -1,7 +1,6 @@
 package filer
 
 import (
-	"errors"
 	"io"
 	"net/http"
 	"time"
@@ -18,22 +17,22 @@ func (f *Filer) Upload(c *gin.Context) {
 	var token models.Token
 	if found, err := f.GQ.From("tokens").Where(goqu.I("id").Eq(id)).ScanStruct(&token); !found || err != nil {
 		if err != nil {
-			c.AbortWithError(http.StatusUnauthorized, err)
+			c.String(http.StatusUnauthorized, err.Error())
 		} else {
-			c.AbortWithError(http.StatusUnauthorized, errors.New("Token not found"))
+			c.String(http.StatusUnauthorized, "Token not found")
 		}
 		return
 	}
 
 	if token.Type != models.UploadToken {
-		c.AbortWithError(http.StatusUnauthorized, errors.New("Invalid token type"))
+		c.String(http.StatusUnauthorized, "Invalid token type")
 		return
 	}
 
 	file, _, err := f.Filesystem.Upload(c.Request.Body)
 	defer c.Request.Body.Close()
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
+		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -42,9 +41,9 @@ func (f *Filer) Upload(c *gin.Context) {
 		var resource models.Resource
 		if found, err := f.GQ.From("resources").Where(goqu.I("id").Eq(token.ReferenceID)).ScanStruct(resource); !found || err != nil {
 			if err != nil {
-				c.AbortWithError(http.StatusUnauthorized, err)
+				c.String(http.StatusUnauthorized, err.Error())
 			} else {
-				c.AbortWithError(http.StatusUnauthorized, errors.New("Resource not found"))
+				c.String(http.StatusUnauthorized, "Resource not found")
 			}
 			return
 		}
@@ -52,7 +51,7 @@ func (f *Filer) Upload(c *gin.Context) {
 		if resource.File != "" {
 			// todo consider if removing it here is supposed to stay or do we cleanup with daemon
 			if err := f.Filesystem.Delete(resource.File); err != nil {
-				c.AbortWithError(http.StatusUnauthorized, err)
+				c.String(http.StatusUnauthorized, err.Error())
 				return
 			}
 		}
@@ -62,27 +61,27 @@ func (f *Filer) Upload(c *gin.Context) {
 			"upload_token":  "",
 			"file":          file,
 		}).Exec(); err != nil {
-			c.AbortWithError(http.StatusInternalServerError, err)
+			c.String(http.StatusInternalServerError, err.Error())
 			return
 		}
 	default:
-		c.AbortWithError(http.StatusBadRequest, errors.New("Invalid reference type"))
+		c.String(http.StatusBadRequest, "Invalid reference type")
 		return
 	}
 
 	reader, err := f.Filesystem.Fetch(file)
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
+		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	if _, err := io.Copy(c.Writer, reader); err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
+		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	if _, err := f.GQ.From("tokens").Where(goqu.I("id").Eq(token.ID)).Delete().Exec(); err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
+		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 }
