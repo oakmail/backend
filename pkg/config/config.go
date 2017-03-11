@@ -6,6 +6,7 @@ type Config struct {
 	DefaultDomain string `default:"oakmail.io"`
 
 	API    APIConfig
+	Filer  FilerConfig
 	Mailer MailerConfig
 	Worker WorkerConfig
 
@@ -25,6 +26,12 @@ type Config struct {
 type APIConfig struct {
 	Enabled bool   `default:"false"`
 	Address string `default:"0.0.0.0:8080"`
+}
+
+// FilerConfig contains configuration data for the Filer module
+type FilerConfig struct {
+	Enabled bool   `default:"false"`
+	Address string `default:"0.0.0.0:8081"`
 }
 
 // MailerConfig contains configuration data for the mailer module

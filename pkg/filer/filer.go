@@ -60,7 +60,8 @@ func NewFiler(
 		Queue:      qu,
 	}
 
-	r.POST("/", f.Upload)
+	r.GET("/", f.Index)
+	r.POST("/:id", f.Upload)
 	r.GET("/:id", f.Fetch)
 
 	return f
