@@ -103,8 +103,8 @@ func NewAPI(
 	resources := resources.Impl{API: a}
 	r.POST("/resources", m.RequiresAuth, resources.Create)
 	r.GET("/resources/:id", m.RequiresAuth, resources.Get)
-	//r.GET("/resources", m.RequiresAuth, resources.List)
-	//r.GET("/accounts/:id/resources", m.RequiresAuth, resources.ListByAccount)
+	r.GET("/resources", m.RequiresAuth, resources.List)
+	r.GET("/accounts/:id/resources", m.RequiresAuth, resources.List)
 	r.PUT("/resources/:id", m.RequiresAuth, resources.Update)
 	r.DELETE("/resources/:id", m.RequiresAuth, resources.Delete)
 

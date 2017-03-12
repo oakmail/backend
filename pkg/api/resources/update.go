@@ -74,6 +74,8 @@ func (i *Impl) Update(c *gin.Context) {
 	resource.DateModified = time.Now()
 
 	if input.Upload {
+		// todo remove existing upload token
+
 		upload := models.Token{
 			DateCreated:   time.Now(),
 			DateModified:  time.Now(),
