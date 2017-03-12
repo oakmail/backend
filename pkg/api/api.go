@@ -37,7 +37,7 @@ func NewAPI(
 	r := gin.New()
 
 	r.RedirectTrailingSlash = false
-	r.Use(middleware.Logger(log, time.RFC3339Nano, true))
+	r.Use(middleware.Logger(log, time.RFC3339Nano, true, "api"))
 	r.Use(cors.Middleware(cors.Config{
 		Origins:         "*",
 		Methods:         "GET, PUT, POST, DELETE",

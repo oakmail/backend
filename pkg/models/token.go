@@ -58,7 +58,6 @@ const (
 	AuthToken   TokenType = "auth"
 	CodeToken             = "code"
 	UploadToken           = "upload"
-	FetchToken            = "fetch"
 )
 
 // Scan implements the database/sql Scanner interface

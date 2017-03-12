@@ -14,6 +14,7 @@ CREATE TABLE accounts (
 
 CREATE TABLE addresses (
 	id            TEXT PRIMARY KEY,
+	styled_id     TEXT,
 	date_created  DATETIME,
 	date_modified DATETIME,
 	account       UNSIGNED BIG INT,
@@ -70,7 +71,7 @@ CREATE TABLE public_key_signatures (
 );
 
 CREATE TABLE resources (
-	id            CHARACTER(20) PRIMARY KEY DEFAULT (uuid()),
+	id            UNSIGNED BIG INT PRIMARY KEY DEFAULT (next_id()),
 	date_created  DATETIME,
 	date_modified DATETIME,
 	owner         UNSIGNED BIG INT,

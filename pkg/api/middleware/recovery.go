@@ -11,6 +11,7 @@ import (
 	"net/http/httputil"
 	"runtime"
 	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lib/pq"
@@ -43,6 +44,10 @@ func (i *Impl) Recovery(c *gin.Context) {
 					sqlite3.ErrNoExtended,
 					goqu.GoquError,
 					goqu.EncodeError:
+
+					if strings.Contains(file, "database/utils.go") {
+						_, file, line, _ = runtime.Caller(4)
+					}
 
 					i.Log.WithFields(logrus.Fields{
 						"error":    err.(error).Error(),

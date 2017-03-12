@@ -13,6 +13,10 @@ import (
 
 // Get allows you to fetch an resource
 func (i *Impl) Get(c *gin.Context) {
+	var (
+		token = c.MustGet("token").(models.Token)
+	)
+
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
 	if err != nil {
 		errors.Abort(c, http.StatusBadRequest, errors.InvalidIDFormat)
@@ -26,6 +30,14 @@ func (i *Impl) Get(c *gin.Context) {
 		}
 
 		errors.Abort(c, http.StatusNotFound, errors.ResourceNotFound)
+		return
+	}
+
+	if !token.CheckOr([]string{
+		"resources." + strconv.FormatUint(resource.ID, 10) + ".delete",
+		"resources.owner:" + strconv.FormatUint(resource.Owner, 10) + ".delete",
+	}) {
+		errors.Abort(c, http.StatusUnauthorized, errors.InsufficientTokenPermissions)
 		return
 	}
 

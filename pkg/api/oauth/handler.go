@@ -21,6 +21,7 @@ func (i *Impl) OAuth(c *gin.Context) {
 		ExpiryDate  time.Time `json:"expiry_date"`
 	}
 	if err := c.BindJSON(&input); err != nil {
+		i.Log.Print(err)
 		errors.Abort(c, http.StatusBadRequest, errors.InvalidJSONInput)
 		return
 	}

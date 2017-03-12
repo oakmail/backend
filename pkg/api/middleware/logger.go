@@ -8,7 +8,7 @@ import (
 )
 
 // Logger logs HTTP requests into the logrus log
-func Logger(logger *logrus.Logger, timeFormat string, utc bool) gin.HandlerFunc {
+func Logger(logger *logrus.Logger, timeFormat string, utc bool, module string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()
 		// some evil middlewares modify this values
@@ -22,7 +22,7 @@ func Logger(logger *logrus.Logger, timeFormat string, utc bool) gin.HandlerFunc 
 		}
 
 		entry := logger.WithFields(logrus.Fields{
-			"module":     "api",
+			"module":     module,
 			"status":     c.Writer.Status(),
 			"method":     c.Request.Method,
 			"path":       path,

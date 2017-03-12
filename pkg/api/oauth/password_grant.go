@@ -22,6 +22,10 @@ applications.owner:[uid].create
 applications.owner:[uid].delete
 applications.owner:[uid].read
 applications.owner:[uid].update
+resources.owner:[uid].create
+resources.owner:[uid].delete
+resources.owner:[uid].read
+resources.owner:[uid].update
 tokens.owner:[uid].create
 tokens.owner:[uid].delete
 tokens.owner:[uid].read`

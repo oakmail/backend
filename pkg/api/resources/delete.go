@@ -14,7 +14,7 @@ import (
 // Delete allows you to delete resources
 func (i *Impl) Delete(c *gin.Context) {
 	var (
-		token = c.MustGet("token").(*models.Token)
+		token = c.MustGet("token").(models.Token)
 	)
 
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)

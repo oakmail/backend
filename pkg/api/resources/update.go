@@ -17,7 +17,7 @@ import (
 // Update allows you to update an resource
 func (i *Impl) Update(c *gin.Context) {
 	var (
-		token = c.MustGet("token").(*models.Token)
+		token = c.MustGet("token").(models.Token)
 	)
 
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)

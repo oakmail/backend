@@ -25,7 +25,7 @@ func TestLogger(t *testing.T) {
 
 		log, hook := test.NewNullLogger()
 
-		r.Use(middleware.Logger(log, time.RFC3339, true))
+		r.Use(middleware.Logger(log, time.RFC3339, true, "api"))
 
 		r.GET("/succeed", func(c *gin.Context) {
 			c.String(http.StatusOK, "hello there %s", "folks")

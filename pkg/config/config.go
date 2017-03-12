@@ -97,7 +97,7 @@ const (
 
 // FlatConfig contains all configuration data for the flat filesystem
 type FlatConfig struct {
-	Path string `default:"./.trtl/files"`
+	Path string `default:"./_runtime/files"`
 }
 
 // SeaweedConfig contains all configuration data for the SeaweedFS client
