@@ -41,6 +41,9 @@ func (i *Impl) passwordGrant(c *gin.Context, addr, password string, appID uint64
 		return
 	}
 
+	// We accept all fancy styling of the emails
+	addr = models.RemoveDots(models.NormalizeAddress(addr))
+
 	// now < expiry < 2 weeks later for pwd grants
 	if expiryDate.Before(time.Now()) || expiryDate.After(time.Now().Add(time.Hour*24*14)) {
 		errors.Abort(c, http.StatusUnprocessableEntity, errors.InvalidExpiryDate)

@@ -10,6 +10,7 @@ import (
 	"github.com/oakmail/backend/pkg/models"
 )
 
+// Upload takes a token and creates a file in the virtual filesystem
 func (f *Filer) Upload(c *gin.Context) {
 	id := c.Param("id")
 

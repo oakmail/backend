@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// Resource is a basic storage in the system without any particular structure.
 type Resource struct {
 	ID           uint64    `db:"id" json:"id" goqu:"skipinsert"`
 	DateCreated  time.Time `db:"date_created" json:"date_created"`
@@ -17,6 +18,7 @@ type Resource struct {
 	UploadToken  string    `db:"upload_token" json:"upload_token,omitempty"`
 }
 
+// Meta is a custom JSON storage type for objects
 type Meta map[string]interface{}
 
 // Scan implements the database/sql Scanner interface
@@ -39,6 +41,7 @@ func (m Meta) Value() (driver.Value, error) {
 	return string(data), err
 }
 
+// Tags is a custom JSON storage type for arrays
 type Tags []string
 
 // Scan implements the database/sql Scanner interface

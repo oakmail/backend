@@ -11,6 +11,7 @@ import (
 	"github.com/oakmail/backend/pkg/models"
 )
 
+// FetchResource allows users to download any resource they own
 func (f *Filer) FetchResource(c *gin.Context) {
 	var (
 		token = c.MustGet("token").(models.Token)

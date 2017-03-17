@@ -25,6 +25,7 @@ type Account struct {
 
 var rNotASCII = regexp.MustCompile(`[^\w\.]`)
 
+// RemoveDots performs a Gmail-like operation on the email - removes all dots.
 func RemoveDots(input string) string {
 	if strings.Index(input, "@") != -1 {
 		parts := strings.SplitN(input, "@", 2)
@@ -35,6 +36,7 @@ func RemoveDots(input string) string {
 	return strings.Replace(input, ".", "", -1)
 }
 
+// NormalizeUsername removes all weird stuff from the username
 func NormalizeUsername(input string) string {
 	return rNotASCII.ReplaceAllString(
 		strings.ToLowerSpecial(unicode.TurkishCase, input),
@@ -42,6 +44,7 @@ func NormalizeUsername(input string) string {
 	)
 }
 
+// NormalizeAddress splits the email into two parts and performs normalization on both parts
 func NormalizeAddress(input string) string {
 	parts := strings.SplitN(input, "@", 2)
 

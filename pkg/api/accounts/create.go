@@ -48,7 +48,7 @@ func (i *Impl) Create(c *gin.Context) {
 
 	// do it first to prevent race condition
 	address := models.Address{
-		ID:           models.NormalizeAddress(input.Address),
+		ID:           models.RemoveDots(models.NormalizeAddress(input.Address)),
 		StyledID:     input.Address,
 		DateCreated:  time.Now(),
 		DateModified: time.Now(),

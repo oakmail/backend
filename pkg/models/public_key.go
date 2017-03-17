@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+// PublicKey is the representation of a public key in the system
 type PublicKey struct {
 	ID           uint64    `db:"key_id" json:"key_id"`
 	DateCreated  time.Time `db:"date_created" json:"date_created"`
@@ -18,6 +19,7 @@ type PublicKey struct {
 	MasterKey        uint64 `db:"master_key" json:"master_key"`
 }
 
+// PublicKeyIdentity is part of the metadata of the key, a signed identity of the key
 type PublicKeyIdentity struct {
 	ID            uint64   `db:"identity" json:"identity" goqu:"skipinsert"`
 	Key           uint64   `db:"key" json:"key"`
@@ -26,6 +28,7 @@ type PublicKeyIdentity struct {
 	Signatures    []uint64 `db:"signatures" json:"signatures"`
 }
 
+// PublicKeySignature is a signature of an identity. Creates Web of Trust.
 type PublicKeySignature struct {
 	ID                   uint64    `db:"id" json:"id" goqu:"skipinsert"`
 	Type                 uint8     `db:"type" json:"type"`

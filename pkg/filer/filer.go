@@ -16,6 +16,7 @@ import (
 	"github.com/oakmail/backend/pkg/queue"
 )
 
+// Filer is the implementation of the Oakmail's fileserver
 type Filer struct {
 	Config     *config.Config
 	Log        *logrus.Logger
@@ -30,6 +31,7 @@ func init() {
 	gin.SetMode(gin.ReleaseMode)
 }
 
+// NewFiler creates a new filesystem server instance
 func NewFiler(
 	cfg *config.Config,
 	log *logrus.Logger,
