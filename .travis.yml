@@ -35,6 +35,7 @@ script:
   - DATABASE=sqlite multicov -v $(glide novendor)
   - goveralls -coverprofile=coverage.out -service=travis-ci
   # build the image
+  - cp $GOPATH/bin/backend ./backend
   - docker build -t oakmail/backend .
 
 after_success:
