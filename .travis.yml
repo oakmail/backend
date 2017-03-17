@@ -1,4 +1,7 @@
 language: go
+sudo: required
+services:
+  - docker
 go:
   - 1.8
   - tip
@@ -31,3 +34,12 @@ script:
   - go install -v github.com/oakmail/backend
   - DATABASE=sqlite multicov -v $(glide novendor)
   - goveralls -coverprofile=coverage.out -service=travis-ci
+  # build the image
+  - docker build -t oakmail/backend .
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push oakmail/backend;
+    fi
+
