@@ -52,12 +52,12 @@ CREATE TABLE public_key_identities (
 	date_created   DATETIME,
 	date_modified  DATETIME,
 	name           TEXT,
-	self_signature UNSIGNED BIG INT,
-	signatures     JSON
+	self_signature UNSIGNED BIG INT
 );
 
 CREATE TABLE public_key_signatures (
 	id                     UNSIGNED BIG INT PRIMARY KEY DEFAULT (next_id()),
+	identity               UNSIGNED BIG INT,
 	type                   INT,
 	algorithm              INT,
 	hash                   INT,
